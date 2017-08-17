@@ -9,14 +9,17 @@ let pageCounter = 1;
 btn.addEventListener('click', function() {
 	let myRequest = new XMLHttpRequest();
 	myRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-' + pageCounter + '.json');
+	// .onload is a .onreadystatechange with readyState == 4 (new feature suppoerted by all modern browsers)
 	myRequest.onload = function() {
 		if (this.status >= 200 && this.status < 400) {
+			// evaluating file from plain text to JSON readable
 			let data = JSON.parse(this.responseText);
 			addText(data);
 		} else {
 			console.log('We connected to the server, but it returned an error')
 		}
 	};
+	// if .onload wasn't succesfull .onerror will occur
 	myRequest.onerror = function() {
 		console.log('Connection error');
 	};
